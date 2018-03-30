@@ -25,7 +25,7 @@ config/initializers/secret_token.rb
 ## Environment normalization:
 /.bundle
 /vendor/bundle
-
+.byebug_history
 # these should all be checked in to normalize the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
 
@@ -42,3 +42,6 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+.DS_Store
+.env
+config/database.yml
