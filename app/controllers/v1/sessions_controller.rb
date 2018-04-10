@@ -19,6 +19,12 @@ end
       #
       #checkUserUsername = User.where(username: username).first
 
+      checkUser = User.where(username: :username).first
+      if checkUser.nil? == false
+          head 410
+          return
+      end
+
        newUser = User.new(v1_sessions_params)
        if newUser.save
         render json: newUser, status: :created
