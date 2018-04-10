@@ -10,25 +10,27 @@ end
 
 ''' create new user '''
   def create
+#byebug
+      # email = v1_sessions_params[:email].downcase
+      #
+      # username = v1_sessions_params[:username].downcase
+      #
+      # checkUserEmail = User.where(email: email).first
+      #
+      #checkUserUsername = User.where(username: username).first
 
-      email = v1_sessions_params[:email].downcase
-
-      username = v1_sessions_params[:username].downcase
-
-      checkUserEmail = User.where(email: email).first
-
-      checkUserUsername = User.where(username: username).first
-
-      if checkUserEmail != nil || checkUserUsername != nil
-        render json: v1_sessions_params, status: :forbidden
-        return
+       newUser = User.new(v1_sessions_params)
+       if newUser.save
+        render json: newUser, status: :created
+    else
+         head(:unauthorized)#render json: newUser.errors status: :unprocessable_entity
       end
-      @v1_user = User.new(v1_sessions_params)
-      if @v1_user.save
-        render json: @v1_user, status: :ok
-      else
-        render json: @v1_user.errors, status: :unprocessable_entity
-      end
+      # @v1_user = User.new(v1_sessions_params)
+      # if @v1_user.save
+      #   render json: @v1_user, status: :ok
+      # else
+      #   render json: @v1_user.errors, status: :unprocessable_entity
+      # end
   end
 
 '''login'''
@@ -72,7 +74,7 @@ end
 def v1_sessions_params
       params.permit(:email, :password, :password_confirmation,:first_name,
           :last_name,:username, :image_file,:image_file_file_name,
-          :image_file_content_type,:image_file_file_size, :image_file_updated_at)
+          :image_file_content_type,:image_file_file_size, :image_file_updated_at,:sessions)
 end
       # .require(:email, :password)
 
